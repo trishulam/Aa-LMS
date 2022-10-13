@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+<!--         <script>
+      function ValidateEmail(inputText) {
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (inputText.value.match(mailformat)) {
+          alert("Valid email address!");
+          document.form1.text1.focus();
+          return true;
+        } else {
+          alert("You have entered an invalid email address!");
+          document.form1.text1.focus();
+          return false;
+        }
+      }
+    </script> -->
+    <!-- <script type="text/javascript"></script> -->
+
+    <!-- Title Page-->
+    <title>REGISTRATION FORM</title>
+
+    <!-- Icons font CSS-->
+    <!-- C:\Paari1263\SIH\Reg_Form\static\vendor    C:\Paari1263\Front_End_Reg_Form\static\vendor-->
+    <link
+      href="{{ url_for('static', filename='vendor/mdi-font/css/material-design-iconic-font.min.css') }}"
+      rel="stylesheet"
+      media="all"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/font-awesome-4.7/css/font-awesome.min.css') }}"
+      rel="stylesheet"
+      media="all"
+    />
+    <!-- Font special for pages-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS-->
+    <link
+    href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}"
+      rel="stylesheet"
+      media="all"
+    />
+    <script src="https://kit.fontawesome.com/8687dc32e2.js" crossorigin="anonymous"></script>
+
+    <link
+    href="{{ url_for('static', filename='vendor/datepicker/daterangepicker.css') }}"
+    rel="stylesheet"
+    media="all"
+    />
+
+    <!-- Main CSS-->
+    <link href="{{ url_for('static', filename='css/reg_form.css') }}" rel="stylesheet" media="all" />
+
+  </head>
+
+  <body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="padding-bottom:2.5em;padding-top:3em;">
+      <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+          <div class="card-body">
+            <h2 class="title">STUDENT REGISTRATION</h2>
+            <form method="POST" name="form1" id="form1" autocomplete="off" onsubmit="return validateForm()">
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group" >
+                    <label class="label">Student Name</label>
+                    <div style="display: flex; flex-direction: row">
+                      <input
+                        class="input--style-4"
+                        type="text"
+                        id="name2"
+                        name="name"
+                        required
+                        value="{{ data.name }}"
+                        onkeyup="validateName()"
+                        disabled
+                      />
+                      <span id="name-error"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Date of Birth</label>
+                    <div class="input-group-icon">
+                      <input
+                        class="input--style-4 js-datepicker"
+                        type="text"
+                        name="birthday"
+                        required
+                        value="10/12/2001"
+                        disabled
+                      />
+                      <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar" ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Gender</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45"
+                        >Male
+                        <input type="radio" name="gender" value="male" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container"
+                        >Female
+                        <input type="radio" name="gender" value="female"/>
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Student Email</label>
+                    <div style="display: flex; flex-direction: row">
+                      <input class="input--style-4" 
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      required 
+                      value="{{ data.email }}"
+                      disabled
+                      onkeyup="validateEmail()"/>
+                      <span id="email-error"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Phone Number</label>
+                    <div style="display: flex; flex-direction: row">
+                      <input class="input--style-4"
+                      type="text"
+                      id="number"
+                      name="number"
+                      maxlength = "10"
+                      required
+                      value="{{ data.phone }}"
+                      disabled
+                      onkeyup="validatePhno()"
+                      />
+                      <span id="phno-error"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Institution Code</label>
+                    <input
+                      class="input--style-4"
+                      type="text"
+                      id="institution_code"
+                      name="institution_code"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Course</label>
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="opt">
+                            <option disabled="disabled" selected="selected">Choose Course</option>
+                            <option>School</option>
+                            <option>B.E</option>
+                            <option>B.Sc</option>
+                            <option>B.A</option>
+                            <option>B.Com</option>
+                        </select>
+                      <div class="select-dropdown"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-t-15">
+                <button class="btn btn--radius-2 btn--blue" type="submit" >
+                  Proceed
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/select2/select2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/datepicker/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/datepicker/daterangepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/global.js') }}"></script>
+
+    <!-- Main JS-->
+    <script>
+
+      function validateName() {
+        var name = document.getElementById("name2")
+        var errname = document.getElementById('name-error')
+        console.log(name.value)
+        var nameformat = "^[A-Za-z]+$";
+        if (name.value.match(nameformat)) {
+            errname.innerHTML = '<i class="check-mark fa-solid fa-circle-check fa-lg" style="color: green; margin-left: 10px; margin-top: 25px"></i>';
+            return true
+        }
+        else {
+            errname.innerHTML = '<i class="check-mark fa-solid fa-circle-xmark fa-lg" style="color: red; margin-left: 10px; margin-top: 25px"></i>';
+            return false
+        }
+      }
+      function validateEmail() {
+        var email = document.getElementById('email')
+        var erremail = document.getElementById('email-error')
+        console.log(email.value)
+        var emailformat = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
+        if (email.value.match(emailformat)) {
+            erremail.innerHTML = '<i class="check-mark fa-solid fa-circle-check fa-lg" style="color: green; margin-left: 10px; margin-top: 25px"></i>';
+            return true
+        }
+        else {
+            erremail.innerHTML = '<i class="check-mark fa-solid fa-circle-xmark fa-lg" style="color: red; margin-left: 10px; margin-top: 25px"></i>';
+            return false
+        }
+      }
+      function validatePhno() {
+        var phno = document.getElementById('number')
+        var errphno = document.getElementById('phno-error')
+        console.log(number.value)
+        var phnoformat = "[0-9]{10}$";
+        if (number.value.match(phnoformat)) {
+            errphno.innerHTML = '<i class="check-mark fa-solid fa-circle-check fa-lg" style="color: green; margin-left: 10px; margin-top: 25px"></i>';
+            return true
+        }
+        else {
+            errphno.innerHTML = '<i class="check-mark fa-solid fa-circle-xmark fa-lg" style="color: red; margin-left: 10px; margin-top: 25px"></i>';
+            return false
+        }
+      }
+
+      function validateForm() {
+          if (!validateName() && !validateEmail() && !validatePhno()) {
+              return false
+          }
+          return true
+      }
+
+    </script>
+  </body>
+</html>
